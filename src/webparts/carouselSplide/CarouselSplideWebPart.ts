@@ -126,7 +126,7 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
                   checked: this.properties.rewind
                 }),
                 PropertyPaneSlider('perPage', {
-                  label: `Número de itens a serem exibidos`,
+                  label: strings.PerPageFieldLabel,
                   min: this.minPerPage,
                   max: this.properties.type === 'fade' ? this.minPerPage : this.maxPerPage,
                   value: this.properties.perPage,
