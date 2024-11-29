@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "js-carousel-splide-client-side-solution",
+    "id": "5a04b8a6-62d6-4bf6-abd6-444ec9691038",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.20.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "js-carousel-splide description"
+      },
+      "longDescription": {
+        "default": "js-carousel-splide description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "js-carousel-splide Feature",
+        "description": "The feature that activates elements of the js-carousel-splide solution.",
+        "id": "9a59f0ed-4a20-43dd-ac2b-3db1db461746",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/js-carousel-splide.sppkg"
+  }
+}
