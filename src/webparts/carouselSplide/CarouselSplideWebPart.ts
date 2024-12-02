@@ -16,12 +16,14 @@ import * as strings from 'CarouselSplideWebPartStrings';
 // import * as numbers from 'CarouselSplideWebPartNumbers';
 
 export interface ICarouselSplideWebPartProps {
+  title: string;
   description: string;
   perPage: number;
   autoplay: boolean;
   rewind: boolean;
   type: string;
   direction: string;
+  padding: number;
 }
 
 export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarouselSplideWebPartProps> {
@@ -29,8 +31,12 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
   private minPerPage: number = 1;
   private maxPerPage: number = 5;
   public render(): void {
+    const title = this.properties.title ? `<h2>${this.properties.title}</h2>` : ``;
+    const description = this.properties.description ? `<p>${this.properties.description}</p>` : ``;
+
     this.domElement.innerHTML = `
-    <p>${this.properties.description}</p>
+    ${title}
+    ${description}
     <div class="${styles.carouselSplide}">
       <div id="splide" class="splide">
         <div class="splide__track">
@@ -54,12 +60,17 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
   }
 
   private initializeSplide(): void {
-    new Splide('#splide', {
+    new Splide('.splide', {
       type: this.properties.type,
       perPage: this.properties.perPage,
       autoplay: this.properties.autoplay,
       rewind: this.properties.rewind,
-      direction: this.properties.direction ? "rtl" : "ltr"
+      direction: this.properties.direction ? "rtl" : "ltr",
+      padding: `${this.properties.padding}rem`,
+      drag: 'free',
+      autoScroll: {
+        speed: 1
+      }
     }).mount();
   }
 
@@ -85,7 +96,6 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    console.log(this);
     return {
       pages: [
         {
@@ -95,6 +105,10 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
           groups: [
             {
               groupFields: [
+                PropertyPaneTextField('title', {
+                  label: strings.TitleFieldLabel,
+                  value: this.properties.title
+                }),
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel,
                   multiline: true,
@@ -112,26 +126,31 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
                 PropertyPaneToggle('direction', {
                   label: strings.DirectionFieldLabel,
                   checked: false,
-                  onText: 'Right',
-                  offText: 'Left',
+                  onText: strings.DirectionOnText,
+                  offText: strings.DirectionOffText,
                   onAriaLabel: 'rtl',
                   offAriaLabel: 'ltr'
                 }),
                 PropertyPaneCheckbox('autoplay', {
-                  text: `Auto Play?`,
+                  text: strings.AutoPlayFieldLabel,
                   checked: this.properties.autoplay
                 }),
                 PropertyPaneCheckbox('rewind', {
-                  text: `Retroceder?`,
+                  text: strings.RewindFieldLabel,
                   checked: this.properties.rewind
                 }),
                 PropertyPaneSlider('perPage', {
-                  label: strings.PerPageFieldLabel,
                   min: this.minPerPage,
                   max: this.properties.type === 'fade' ? this.minPerPage : this.maxPerPage,
                   value: this.properties.perPage,
-                  ariaLabel: 'itens',
+                  label: strings.PerPageFieldLabel,
                   disabled: this.properties.type === 'fade',
+                }),
+                PropertyPaneSlider('padding', {
+                  min: 0,
+                  max: 5,
+                  value: this.properties.padding,
+                  label: strings.PaddingFieldLabel,
                 }),
               ]
             }

@@ -5,8 +5,12 @@ declare interface ICarouselSplideWebPartStrings {
   TitleFieldLabel: string;
   TypeFieldLabel: string;
   DirectionFieldLabel: string;
-  PerPageFieldLabel: string;
+  DirectionOnText: string;
+  DirectionOffText: string;
+  RewindFieldLabel: string;
   AutoPlayFieldLabel: string;
+  PerPageFieldLabel: string;
+  PaddingFieldLabel: string;
   AppLocalEnvironmentSharePoint: string;
   AppLocalEnvironmentTeams: string;
   AppLocalEnvironmentOffice: string;
