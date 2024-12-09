@@ -21,10 +21,6 @@
         counter-increment: pagination-num;
         content: counter(pagination-num);
       }
-
-      &.is-active {
-        color: red;
-      }
     }
   }
 }
