@@ -13,7 +13,7 @@ import Splide from '@splidejs/splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 import styles from './CarouselSplideWebPart.module.scss';
 import * as strings from 'CarouselSplideWebPartStrings';
-import { PropertyFieldCollectionData, CustomCollectionFieldType } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
+// import { PropertyFieldCollectionData, CustomCollectionFieldType } from '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData';
 
 export interface ICarouselSplideWebPartProps {
   title: string;
@@ -24,34 +24,16 @@ export interface ICarouselSplideWebPartProps {
   type: string;
   direction: string;
   padding: number;
-  items: IPropertyControlsTestWebPartProps[];
+  // items: IPropertyControlsTestWebPartProps['items'];
 }
-export interface IPropertyControlsTestWebPartProps {
-  Id: string;
-  Lastname: string;
-  Age: number;
-  City: number;
-  Sign: boolean;
-}
+
+// export interface IPropertyControlsTestWebPartProps {
+//   items: Array<{ title: string; lastname: string; age: number; city: number; sign: boolean }>;
+// }
 export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarouselSplideWebPartProps> {
 
   private minPerPage: number = 1;
   private maxPerPage: number = 5;
-  private propertyFieldCollectionData = PropertyFieldCollectionData;
-  private customCollectionFieldType = CustomCollectionFieldType;
-
-  protected async loadPropertyPaneResources(): Promise<void> {
-    console.log('Carregando PropertyFieldCollectionData...');
-    return import(
-      '@pnp/spfx-property-controls/lib/PropertyFieldCollectionData'
-    ).then(component => {
-      console.log('PropertyFieldCollectionData carregado com sucesso.');
-      this.propertyFieldCollectionData = component.PropertyFieldCollectionData;
-      this.customCollectionFieldType = component.CustomCollectionFieldType;
-    }).catch(error => {
-      console.error('Erro ao carregar PropertyFieldCollectionData:', error);
-    });
-  }
 
   public render(): void {
     const title = this.properties.title ? `<h2>${this.properties.title}</h2>` : ``;
@@ -82,7 +64,7 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
     this.initializeSplide();
   }
 
-  private initializeSplide(): void {
+  protected initializeSplide(): void {
     new Splide('.splide', {
       type: this.properties.type,
       perPage: this.properties.perPage,
@@ -101,14 +83,12 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
     if (this.properties.type === 'fade') this.properties.perPage = this.minPerPage;
     if (!this.properties.perPage) this.properties.perPage = this.minPerPage;
     if (!this.properties.padding) this.properties.padding = 0;
-    if (!this.properties.items) this.properties.items = [];
-
-    await this.loadPropertyPaneResources();
-
+    
     return super.onInit();
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+
     return {
       pages: [
         {
@@ -118,58 +98,6 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
           groups: [
             {
               groupFields: [
-                this.propertyFieldCollectionData("items", {
-                  key: "items",
-                  label: "Collection data",
-                  panelHeader: "Collection data panel header",
-                  manageBtnLabel: "Manage collection data",
-                  value: this.properties.items,
-                  fields: [
-                    {
-                      id: "Title",
-                      title: "Firstname",
-                      type: this.customCollectionFieldType.string,
-                      required: true
-                    },
-                    {
-                      id: "Lastname",
-                      title: "Lastname",
-                      type: this.customCollectionFieldType.string
-                    },
-                    {
-                      id: "Age",
-                      title: "Age",
-                      type: this.customCollectionFieldType.number,
-                      required: true
-                    },
-                    {
-                      id: "City",
-                      title: "Favorite city",
-                      type: this.customCollectionFieldType.dropdown,
-                      options: [
-                        {
-                          key: "antwerp",
-                          text: "Antwerp"
-                        },
-                        {
-                          key: "helsinki",
-                          text: "Helsinki"
-                        },
-                        {
-                          key: "montreal",
-                          text: "Montreal"
-                        }
-                      ],
-                      required: true
-                    },
-                    {
-                      id: "Sign",
-                      title: "Signed",
-                      type: this.customCollectionFieldType.boolean
-                    }
-                  ],
-                  disabled: false
-                }),
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel,
                   value: this.properties.title

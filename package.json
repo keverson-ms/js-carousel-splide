@@ -18,13 +18,11 @@
     "@microsoft/sp-office-ui-fabric-core": "1.20.0",
     "@microsoft/sp-property-pane": "1.20.0",
     "@microsoft/sp-webpart-base": "1.20.0",
-    "@pnp/spfx-controls-react": "^3.20.0",
-    "@pnp/spfx-property-controls": "^3.19.0",
+    "@pnp/spfx-property-controls": "3.18.0",
     "@splidejs/splide": "^4.1.4",
     "tslib": "2.3.1"
   },
   "devDependencies": {
-    "@fluentui/react": "^8.106.4",
     "@microsoft/eslint-config-spfx": "1.20.2",
     "@microsoft/eslint-plugin-spfx": "1.20.2",
     "@microsoft/rush-stack-compiler-4.7": "0.1.0",
