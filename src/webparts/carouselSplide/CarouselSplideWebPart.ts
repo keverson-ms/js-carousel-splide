@@ -80,10 +80,11 @@ export default class CarouselSplideWebPart extends BaseClientSideWebPart<ICarous
   }
 
   public async onInit(): Promise<void> {
+
     if (this.properties.type === 'fade') this.properties.perPage = this.minPerPage;
     if (!this.properties.perPage) this.properties.perPage = this.minPerPage;
     if (!this.properties.padding) this.properties.padding = 0;
-    
+
     return super.onInit();
   }
 
